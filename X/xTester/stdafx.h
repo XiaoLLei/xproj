@@ -47,3 +47,7 @@ using namespace ATL;
 #include "xDll/xDll.h"
 #include "xDll/IxTest.h"
 #include "xDll/IxTestService.h"
+
+// xKernel
+#include "xKernel/IxWnd.h"
+#include "xKernel/xKernel.h"

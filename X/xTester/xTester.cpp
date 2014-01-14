@@ -18,6 +18,10 @@ public:
         CxAutoDo _autoDo;
 
         xDll::XDll_RegisterObjectsAndServices();
+        xKernel::xKernel_RegisterObjectsAndServices();
+
+        CComPtr<IxWnd> spWnd;
+        ::xCommon::CreateObjectByIID(__uuidof(IxWnd), (void**)&spWnd);
 
         CComPtr<IxTest> spTest;
         ::xCommon::CreateObjectByIID(__uuidof(IxTest), (void**)&spTest);
