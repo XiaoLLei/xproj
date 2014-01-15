@@ -7,4 +7,5 @@
 ]
 __interface IxWnd : IUnknown
 {
+    HRESULT CreateWnd();
 };

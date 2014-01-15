@@ -1,7 +1,8 @@
 #pragma once
 #include "xKernel/IxElement.h"
 
-class CxElement : public IxElement
+class CxElement
+    : public IxElement
 {
 public:
     CxElement();

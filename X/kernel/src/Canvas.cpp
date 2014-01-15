@@ -36,6 +36,13 @@ HRESULT CxCanvas::Create(HDC hdc, SIZE sz)
     return S_OK;
 }
 
+HRESULT CxCanvas::GetSize(LPSIZE lpszSize)
+{
+    if (!lpszSize)  return E_POINTER;
+    *lpszSize = m_szSize;
+    return S_OK;
+}
+
 HRESULT CxCanvas::FillSolidRect(RECT rc, COLORREF clr)
 {
     if (!m_hDC)
@@ -45,9 +52,34 @@ HRESULT CxCanvas::FillSolidRect(RECT rc, COLORREF clr)
 
     Graphics oGraphics(m_hDC);
 
-    SolidBrush oBrush(Color((LOBYTE(clr >> 16)), GetRValue(clr), GetGValue(clr), GetBValue(clr)));
+    SolidBrush oBrush(Color((LOBYTE(clr >> 24)), GetRValue(clr), GetGValue(clr), GetBValue(clr)));
 
     oGraphics.FillRectangle(&oBrush, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+
+    return S_OK;
+}
+
+HRESULT CxCanvas::PaintToDC(POINT ptSrc, HDC hdc, RECT rcDest)
+{
+    ::BitBlt(hdc, rcDest.left, rcDest.top, rcDest.right - rcDest.left, rcDest.bottom - rcDest.top, m_hDC, ptSrc.x, ptSrc.y, SRCCOPY);
+    return S_OK;
+}
+
+HRESULT CxCanvas::BlendToDC(RECT rcSrc, HDC hdc, RECT rcDest, BYTE byAlpha)
+{
+    BLENDFUNCTION bf = {0};
+    bf.BlendOp = AC_SRC_OVER;
+    bf.BlendFlags = 0;
+    bf.AlphaFormat = AC_SRC_ALPHA;
+    bf.SourceConstantAlpha = byAlpha;
+
+    ::AlphaBlend(hdc
+        , rcDest.left, rcDest.top
+        , rcDest.right - rcDest.left, rcDest.bottom - rcDest.top
+        , m_hDC
+        , rcSrc.left, rcSrc.top
+        , rcSrc.right - rcSrc.left, rcSrc.bottom - rcSrc.top
+        , bf);
 
     return S_OK;
 }

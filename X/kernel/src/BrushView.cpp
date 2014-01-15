@@ -23,7 +23,15 @@ HRESULT CxBrushView::SetColor(COLORREF clr)
     return S_OK;
 }
 
-HRESULT CxBrushView::Paint()
+HRESULT CxBrushView::Paint(IxCanvas* pCanvas)
 {
+    if (!pCanvas)   return E_POINTER;
+
+    COLORREF clr = m_clrBkg;
+
+    clr += (m_byAlpha << 24);
+
+    pCanvas->FillSolidRect(m_rcBox, clr);
+
     return S_OK;
 }

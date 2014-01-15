@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "AutoDo.h"
+#include "xCommon/IxMessageLoop.h"
 
 
 // The module attribute causes WinMain to be automatically implemented for you
@@ -20,18 +21,40 @@ public:
         xDll::XDll_RegisterObjectsAndServices();
         xKernel::xKernel_RegisterObjectsAndServices();
 
+        //CComPtr<IxTest> spTest;
+        //::xCommon::CreateObjectByIID(__uuidof(IxTest), (void**)&spTest);
+        //if (spTest)
+        //    spTest->Test();
+
+        //CComPtr<IxTestService> spTestService;
+        //::xCommon::GetService(__uuidof(IxTestService), (void**)&spTestService);
+        //if (spTestService)
+        //    spTestService->Test();
+
         CComPtr<IxWnd> spWnd;
         ::xCommon::CreateObjectByIID(__uuidof(IxWnd), (void**)&spWnd);
+        if (spWnd)
+            spWnd->CreateWnd();
 
-        CComPtr<IxTest> spTest;
-        ::xCommon::CreateObjectByIID(__uuidof(IxTest), (void**)&spTest);
-        if (spTest)
-            spTest->Test();
+        CComPtr<IxBrushView> spBrushView;
+        ::xCommon::CreateObjectByIID(__uuidof(IxBrushView), (void**)&spBrushView);
+        if (spBrushView)
+            spBrushView->SetColor(RGB(100,100,200));
 
-        CComPtr<IxTestService> spTestService;
-        ::xCommon::GetService(__uuidof(IxTestService), (void**)&spTestService);
-        if (spTestService)
-            spTestService->Test();
+        CComQIPtr<IxView> spView = spBrushView;
+        if (spView)
+        {
+            spView->SetBoxRect(CRect(0, 0, 800, 600));
+        }
+
+        CComQIPtr<IxNode> spNode = spWnd;
+        if (spNode)
+            spNode->AddChild(CComQIPtr<IxNode>(spBrushView));
+
+        CComPtr<IxMessageLoop> spLoop;
+        ::xCommon::GetService(__uuidof(IxMessageLoop), (void**)&spLoop);
+        if (spLoop)
+            spLoop->Run();
 
         return S_OK;
     }

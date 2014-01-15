@@ -53,8 +53,15 @@ using namespace WTL;
 
 // std
 #include <vector>
+#include <set>
 #include <algorithm>
 
 // gdi+
 #include <GdiPlus.h>
 #pragma comment(lib, "gdiplus.lib")
+
+// xCommon
+#include "xCommon/xIncludeCommon.h"
+
+// self
+#include "xKernel/xDefineKernel.h"

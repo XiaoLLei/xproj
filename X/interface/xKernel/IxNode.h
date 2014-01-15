@@ -19,4 +19,5 @@ __interface IxNode : IUnknown
     HRESULT SetParent(IxNode* pParent);
     HRESULT Contains(IxNode* pNode, LPBOOL pbContain);
     HRESULT GetIndexOf(IxNode* pNode, LPINT pnIndex);
+    HRESULT GetDepth(LPINT pnDepth);
 };

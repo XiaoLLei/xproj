@@ -92,7 +92,7 @@ HRESULT CxView::SetFocus()
     return S_OK;
 }
 
-HRESULT CxView::GetFocusState(LPBOOL bFocus)
+HRESULT CxView::GetFocusState(LPBOOL pbFocus)
 {
     // to do ...
     return S_OK;

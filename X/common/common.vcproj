@@ -17,7 +17,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)output\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)intermediate\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)intermediate\$(ConfigurationName)\$(ProjectName)\"
 			ConfigurationType="2"
 			UseOfATL="2"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -215,7 +215,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\Global.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Lock.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\MessageLoop.cpp"
 				>
 			</File>
 			<File
@@ -227,19 +235,45 @@
 				>
 			</File>
 			<File
-				RelativePath="..\interface\xCommon\xCommon.cpp"
+				RelativePath=".\src\xCommon.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
 			Name="interface"
 			>
 			<File
+				RelativePath="..\interface\xCommon\IxMessageLoop.h"
+				>
+			</File>
+			<File
 				RelativePath="..\interface\xCommon\IxService.h"
 				>
 			</File>
 			<File
 				RelativePath="..\interface\xCommon\xCommon.h"
+				>
+			</File>
+			<File
+				RelativePath="..\interface\xCommon\xIncludeCommon.h"
 				>
 			</File>
 		</Filter>
@@ -249,7 +283,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\include\Global.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\Lock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\MessageLoop.h"
 				>
 			</File>
 			<File

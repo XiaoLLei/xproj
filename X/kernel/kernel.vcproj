@@ -17,7 +17,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)output\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)intermediate\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)intermediate\$(ConfigurationName)\$(ProjectName)\"
 			ConfigurationType="2"
 			UseOfATL="2"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -77,8 +77,10 @@
 				Name="VCLinkerTool"
 				RegisterOutput="false"
 				IgnoreImportLibrary="true"
+				AdditionalDependencies="common_d.lib"
 				OutputFile="$(OutDir)\xKernel.dll"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="$(SolutionDir)lib"
 				GenerateManifest="false"
 				IgnoreEmbeddedIDL="true"
 				MergedIDLBaseFileName=""
@@ -220,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\def.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\Element.h"
 				>
 			</File>
@@ -239,6 +245,10 @@
 				RelativePath=".\include\Wnd.h"
 				>
 			</File>
+			<File
+				RelativePath=".\include\WndManager.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="interface"
@@ -256,6 +266,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\interface\xKernel\IxLayout.h"
+				>
+			</File>
+			<File
 				RelativePath="..\interface\xKernel\IxNode.h"
 				>
 			</File>
@@ -264,11 +278,31 @@
 				>
 			</File>
 			<File
+				RelativePath="..\interface\xKernel\IxReceiveMessage.h"
+				>
+			</File>
+			<File
 				RelativePath="..\interface\xKernel\IxView.h"
 				>
 			</File>
 			<File
 				RelativePath="..\interface\xKernel\IxWnd.h"
+				>
+			</File>
+			<File
+				RelativePath="..\interface\xKernel\IxWndManager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\interface\xKernel\IxWndProc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\interface\xKernel\xDefineKernel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\interface\xKernel\xIncludeKernel.h"
 				>
 			</File>
 			<File
@@ -305,6 +339,10 @@
 			</File>
 			<File
 				RelativePath=".\src\Wnd.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\WndManager.cpp"
 				>
 			</File>
 		</Filter>

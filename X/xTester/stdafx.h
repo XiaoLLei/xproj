@@ -41,7 +41,8 @@
 
 using namespace ATL;
 
-#include "xCommon/xCommon.h"
+// xCommon
+#include "xCommon/xIncludeCommon.h"
 
 // xDll
 #include "xDll/xDll.h"
@@ -49,5 +50,5 @@ using namespace ATL;
 #include "xDll/IxTestService.h"
 
 // xKernel
-#include "xKernel/IxWnd.h"
+#include "xKernel/xIncludeKernel.h"
 #include "xKernel/xKernel.h"

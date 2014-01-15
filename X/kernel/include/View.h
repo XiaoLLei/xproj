@@ -11,25 +11,25 @@ public:
     virtual ~CxView();
 
     // interface of IxView
-    HRESULT GetBoxRect(LPRECT lprcBox);
-    HRESULT SetBoxRect(RECT rcBox);
+    HRESULT STDMETHODCALLTYPE GetBoxRect(LPRECT lprcBox);
+    HRESULT STDMETHODCALLTYPE SetBoxRect(RECT rcBox);
 
-    HRESULT GetSize(LPSIZE lpszSize);
-    HRESULT SetSize(SIZE szSize);
+    HRESULT STDMETHODCALLTYPE GetSize(LPSIZE lpszSize);
+    HRESULT STDMETHODCALLTYPE SetSize(SIZE szSize);
 
-    HRESULT GetPosition(LPPOINT pptPos);
-    HRESULT SetPosition(POINT ptPos);
+    HRESULT STDMETHODCALLTYPE GetPosition(LPPOINT pptPos);
+    HRESULT STDMETHODCALLTYPE SetPosition(POINT ptPos);
 
-    HRESULT GetAlpha(LPBYTE pbyAlpha);
-    HRESULT SetAlpha(BYTE byAlpha);
+    HRESULT STDMETHODCALLTYPE GetAlpha(LPBYTE pbyAlpha);
+    HRESULT STDMETHODCALLTYPE SetAlpha(BYTE byAlpha);
 
-    HRESULT GetShowState(LPBOOL pbShow);
-    HRESULT SetShowState(BOOL bShow);
+    HRESULT STDMETHODCALLTYPE GetShowState(LPBOOL pbShow);
+    HRESULT STDMETHODCALLTYPE SetShowState(BOOL bShow);
 
-    HRESULT GetVisibleState(LPBOOL pbVisible);
+    HRESULT STDMETHODCALLTYPE GetVisibleState(LPBOOL pbVisible);
 
-    HRESULT SetFocus();
-    HRESULT GetFocusState(LPBOOL bFocus);
+    HRESULT STDMETHODCALLTYPE SetFocus();
+    HRESULT STDMETHODCALLTYPE GetFocusState(LPBOOL pbFocus);
 
 protected:
     HRESULT _set_box_rect(RECT& rcBox);

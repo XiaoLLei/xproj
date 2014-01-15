@@ -2,7 +2,7 @@
 
 [
     object,
-    uuid("A5B1772B-6D14-4420-99BE-AF2E4030EEE5"),
+    uuid("3D671AC9-F3E8-403f-9FEC-213C5BF83B9E"),
     pointer_default(unique)
 ]
 __interface IxService : IUnknown

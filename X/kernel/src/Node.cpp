@@ -3,6 +3,7 @@
 
 CxNode::CxNode()
     : m_pParent(NULL)
+    , m_nDepth(0)
 {}
 
 CxNode::~CxNode()
@@ -120,6 +121,19 @@ HRESULT CxNode::GetParent(IxNode** ppParent)
 HRESULT CxNode::SetParent(IxNode* pParent)
 {
     m_pParent = pParent;
+
+    CComPtr<IxReceiveMessage> spRecv = GetEntity<IxReceiveMessage>();
+
+    ATLASSERT(spRecv);
+
+    if (spRecv)
+    {
+        EVENTPARAM params;
+        params.message = XM_DEPTH_CHANGE;
+        BOOL bHandled = FALSE;
+        spRecv->OnMessage(&params, &bHandled);
+    }
+
     return S_OK;
 }
 
@@ -169,6 +183,28 @@ HRESULT CxNode::GetIndexOf(IxNode* pNode, LPINT pnIndex)
     return S_OK;
 }
 
+HRESULT CxNode::GetDepth(LPINT pnDepth)
+{
+    if (!pnDepth)   return E_POINTER;
+    *pnDepth = m_nDepth;
+    return S_OK;
+}
+
+HRESULT CxNode::OnMessage(LPEVENTPARAM params, LPBOOL pbHandled)
+{
+    if (!params || !pbHandled)
+    {
+        return E_POINTER;
+    }
+
+    if (XM_DEPTH_CHANGE == params->message)
+    {
+        _depth_change(*params);
+    }
+
+    return S_OK;
+}
+
 HRESULT CxNode::_do_remove_child(IxNode* pNode)
 {
     if (!pNode) return E_FAIL;
@@ -180,12 +216,46 @@ HRESULT CxNode::_do_remove_child(IxNode* pNode)
         CComPtr<IxNode> spNode = *rit;
         if (spNode)
         {
-            spNode->SetParent(GetEntity<IxNode>());
+            spNode->SetParent(NULL);
         }
+
+        m_vecChildren.erase(--rit.base());
+
         return S_OK;
     }
     else
     {
         return E_FAIL;
     }
+}
+
+HRESULT CxNode::_depth_change(EVENTPARAM& params)
+{
+    INT nDepth = 0;
+
+    if (m_pParent)
+    {
+        m_pParent->GetDepth(&nDepth);
+        ++nDepth;
+    }
+
+    if (m_nDepth != nDepth)
+    {
+        m_nDepth = nDepth;
+
+        if (!m_vecChildren.empty())
+        {
+            for (NODEVEC::iterator it = m_vecChildren.begin(); it != m_vecChildren.end(); ++it)
+            {
+                CComQIPtr<IxReceiveMessage> spRecv = *it;
+                if (spRecv)
+                {
+                    BOOL bHandle = FALSE;
+                    spRecv->OnMessage(&params, &bHandle);
+                }
+            }
+        }
+    }
+
+    return S_OK;
 }

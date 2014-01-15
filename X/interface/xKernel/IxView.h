@@ -25,5 +25,5 @@ __interface IxView : IUnknown
     HRESULT GetVisibleState(LPBOOL pbVisible);
 
     HRESULT SetFocus();
-    HRESULT GetFocusState(LPBOOL bFocus);
+    HRESULT GetFocusState(LPBOOL pbFocus);
 };
