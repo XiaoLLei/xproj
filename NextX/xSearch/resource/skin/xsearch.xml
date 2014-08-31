@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UI version="1.0">
+  <IFrame Name="TitleBar" ID="1000" Size="1,40" IgnoreWidth="TRUE" >
+    <Children>
+      <IFrame LayoutType="ELT_VERTICAL" Size="20,20" IgnoreHeight="TRUE" AutoWidth="TRUE" Direction="EBV_DIRECTION_RIGHT2LEFT">
+        <Children>
+          <ISysBtnClose ID="1003" Direction="EBV_DIRECTION_MIDDLE" Style="Close" Size="20,20"/>
+        </Children>
+      </IFrame>
+    </Children>
+  </IFrame>
+
+  <IFrame Name="edit" Margin="10,2,10,2" Size="1,1" IgnoreWidth="TRUE" IgnoreHeight="TRUE" Direction="EBV_DIRECTION_MIDDLE" >
+    <Children>
+      <IxWLRichEdit ID="10001" Name="edit" IgnoreWidth="TRUE" IgnoreHeight="TRUE" TabIndex="1"/>
+      <IFrame LayoutType="ELT_VERTICAL" Size="1,1" IgnoreHeight="TRUE" AutoWidth="TRUE" Direction="EBV_DIRECTION_RIGHT2LEFT">
+        <Children>
+          <IxButton ID="10002" Style="search_btn" Size="25,27" Direction="EBV_DIRECTION_MIDDLE" />
+        </Children>
+      </IFrame>
+    </Children>
+  </IFrame>
+
+
+  <IxCanvas ID="10000" Name="main" Style="main" WinStyleEx="80" >
+    <Children>
+      <!--<Import File="skin:\xsearch.xml|TitleBar" />-->
+      <Import File="skin:\xsearch.xml|edit" />
+    </Children>
+  </IxCanvas>
+
+</UI>

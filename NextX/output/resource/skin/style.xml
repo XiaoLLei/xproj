@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StyleSet version="1.0">
+  <Style name="main">
+    <Property name="Size" value="280,28" />
+    <Property name="FixSize" value="TRUE" />
+    <Property name="RimStyle" value="RimStyle" />
+    <Property name="ShadowStyle" value="Shadow" />
+    <Property name="BkgColor" value="255,255,255" />
+  </Style>
+
+  <Style name="RimStyle" >
+    <Property name="RimRadius" value="1" />
+  </Style>
+
+  <Style name="Shadow" >
+    <Property name="BoundRect" value="21,21,20,20" />
+    <Property name="Texture">
+      <ITexture File="skin:\\shadow.png" Hollow="TRUE" StretchArea="30,30,360,280" DrawMode="EV_TEXTURE_DRAWMODE_TILE" />
+    </Property>
+  </Style>
+
+  <Style name="Close">
+    <Property name="Size" value="11,11" />
+    <Property name="Icon">
+      <ITexture File="skin:\\close.png" Width="11" />
+    </Property>
+    <Property name="IconMargin" value="0,0,0,0"/>
+  </Style>
+
+  <Style name="AddressBarFont">
+    <Property name="Height" value="18" />
+  </Style>
+
+  <Style name="search_btn" >
+    <Property name="Icon">
+      <ITexture File="skin:\\search_btn.png" Width="25" DrawMode="EV_TEXTURE_DRAWMODE_NORMAL" />
+    </Property>
+  </Style>
+
+</StyleSet>
