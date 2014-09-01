@@ -1,7 +1,7 @@
-; ¸Ã½Å±¾Ê¹ÓÃ HM VNISEdit ½Å±¾±à¼­Æ÷Ïòµ¼²úÉú
+ï»¿; è¯¥è„šæœ¬ä½¿ç”¨ HM VNISEdit è„šæœ¬ç¼–è¾‘å™¨å‘å¯¼äº§ç”Ÿ
 
-; °²×°³ÌĞò³õÊ¼¶¨Òå³£Á¿
-!define PRODUCT_NAME "xSearch"
+; å®‰è£…ç¨‹åºåˆå§‹å®šä¹‰å¸¸é‡
+!define PRODUCT_NAME "xSearch(æœé±¼)"
 !define PRODUCT_VERSION "1.0.0.1"
 !define PRODUCT_PUBLISHER "Yuer Tech, Inc."
 !define PRODUCT_WEB_SITE "http://www.nextxm.com"
@@ -9,38 +9,41 @@
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
+!define COMPANY_NAME "å°é±¼ç§‘æŠ€"
+!define COMPANY_WEBSITE "æœé±¼å®˜ç½‘"
+
 SetCompressor lzma
 
-; ------ MUI ÏÖ´ú½çÃæ¶¨Òå (1.67 °æ±¾ÒÔÉÏ¼æÈİ) ------
+; ------ MUI ç°ä»£ç•Œé¢å®šä¹‰ (1.67 ç‰ˆæœ¬ä»¥ä¸Šå…¼å®¹) ------
 !include "MUI.nsh"
 
-; MUI Ô¤¶¨Òå³£Á¿
+; MUI é¢„å®šä¹‰å¸¸é‡
 !define MUI_ABORTWARNING
 !define MUI_ICON "install.ico"
 !define MUI_UNICON "uninstall.ico"
 
-; »¶Ó­Ò³Ãæ
+; æ¬¢è¿é¡µé¢
 !insertmacro MUI_PAGE_WELCOME
-; Ğí¿ÉĞ­ÒéÒ³Ãæ
+; è®¸å¯åè®®é¡µé¢
 !define MUI_LICENSEPAGE_CHECKBOX
 !insertmacro MUI_PAGE_LICENSE "License.txt"
-; °²×°Ä¿Â¼Ñ¡ÔñÒ³Ãæ
+; å®‰è£…ç›®å½•é€‰æ‹©é¡µé¢
 !insertmacro MUI_PAGE_DIRECTORY
-; °²×°¹ı³ÌÒ³Ãæ
+; å®‰è£…è¿‡ç¨‹é¡µé¢
 !insertmacro MUI_PAGE_INSTFILES
-; °²×°Íê³ÉÒ³Ãæ
+; å®‰è£…å®Œæˆé¡µé¢
 !define MUI_FINISHPAGE_RUN "$INSTDIR\xSearch.exe"
 !insertmacro MUI_PAGE_FINISH
 
-; °²×°Ğ¶ÔØ¹ı³ÌÒ³Ãæ
+; å®‰è£…å¸è½½è¿‡ç¨‹é¡µé¢
 !insertmacro MUI_UNPAGE_INSTFILES
 
-; °²×°½çÃæ°üº¬µÄÓïÑÔÉèÖÃ
+; å®‰è£…ç•Œé¢åŒ…å«çš„è¯­è¨€è®¾ç½®
 !insertmacro MUI_LANGUAGE "SimpChinese"
 
-; °²×°Ô¤ÊÍ·ÅÎÄ¼ş
+; å®‰è£…é¢„é‡Šæ”¾æ–‡ä»¶
 !insertmacro MUI_RESERVEFILE_INSTALLOPTIONS
-; ------ MUI ÏÖ´ú½çÃæ¶¨Òå½áÊø ------
+; ------ MUI ç°ä»£ç•Œé¢å®šä¹‰ç»“æŸ ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "xSearch_setup.exe"
@@ -48,7 +51,7 @@ InstallDir "$PROGRAMFILES\xSearch"
 InstallDirRegKey HKLM "${PRODUCT_UNINST_KEY}" "UninstallString"
 ShowInstDetails show
 ShowUnInstDetails show
-BrandingText "Ğ¡Óã¿Æ¼¼"
+BrandingText ${COMPANY_NAME}
 
 Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
@@ -56,24 +59,28 @@ Section "MainSection" SEC01
   SetOverwrite ifnewer
   
   File "xSearch.exe"
-  CreateDirectory "$SMPROGRAMS\xSearch"
-  CreateShortCut "$SMPROGRAMS\xSearch\xSearch(ËÑÓã).lnk" "$INSTDIR\xSearch.exe"
-  CreateShortCut "$DESKTOP\ËÑÓã.lnk" "$INSTDIR\xSearch.exe"
   File "bdxui.dll"
   ;File "bdxctrl.dll"
   File "bdcommon.dll"
   
-  CreateDirectory "$SMPROGRAMS\xSearch\resource"
-  CreateDirectory "$SMPROGRAMS\xSearch\resource\skin"
   SetOutPath "$INSTDIR\resource\skin"
   File "resource\skin\*.xml"
   File "resource\skin\*.png"
+  
+  ; å†™å¼€å§‹èœå•å¿«æ·æ–¹å¼
+  WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
+  CreateDirectory "$SMPROGRAMS\xSearch"
+  CreateShortCut "$SMPROGRAMS\xSearch\${PRODUCT_NAME}.lnk" "$INSTDIR\xSearch.exe"
+  CreateShortCut "$SMPROGRAMS\xSearch\${COMPANY_WEBSITE}.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
+  CreateShortCut "$SMPROGRAMS\xSearch\Uninstall.lnk" "$INSTDIR\uninst.exe"
+  
+  ; å†™æ¡Œé¢å¿«æ·æ–¹å¼
+  CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\xSearch.exe"
+  
 SectionEnd
 
 Section -AdditionalIcons
-  WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
-  CreateShortCut "$SMPROGRAMS\xSearch\Ğ¡Óã¿Æ¼¼¹ÙÍø.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
-  CreateShortCut "$SMPROGRAMS\xSearch\Ğ¶ÔØËÑÓã.lnk" "$INSTDIR\uninst.exe"
+
 SectionEnd
 
 Section -Post
@@ -88,7 +95,7 @@ Section -Post
 SectionEnd
 
 /******************************
- *  ÒÔÏÂÊÇ°²×°³ÌĞòµÄĞ¶ÔØ²¿·Ö  *
+ *  ä»¥ä¸‹æ˜¯å®‰è£…ç¨‹åºçš„å¸è½½éƒ¨åˆ†  *
  ******************************/
 
 Section Uninstall
@@ -100,33 +107,33 @@ Section Uninstall
   Delete "$INSTDIR\xSearch.exe"
   
   Delete "$INSTDIR\resource\skin\*.xml"
-	Delete "$INSTDIR\resource\skin\*.png"
+  Delete "$INSTDIR\resource\skin\*.png"
 	
-	RMDir  "$INSTDIR\resource\skin"
-	RMDir  "$INSTDIR\resource"
+  RMDir  "$INSTDIR\resource\skin"
+  RMDir  "$INSTDIR\resource"
+  
+  RMDir "$INSTDIR"
 
   Delete "$SMPROGRAMS\xSearch\Uninstall.lnk"
-  Delete "$SMPROGRAMS\xSearch\Website.lnk"
-  Delete "$DESKTOP\ËÑÓã.lnk"
-  Delete "$SMPROGRAMS\xSearch\xSearch(ËÑÓã).lnk"
+  Delete "$SMPROGRAMS\xSearch\${COMPANY_WEBSITE}.lnk"
+  Delete "$SMPROGRAMS\xSearch\${PRODUCT_NAME}.lnk"
+  Delete "$DESKTOP\${PRODUCT_NAME}.lnk"
 
   RMDir "$SMPROGRAMS\xSearch"
-
-  RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
   SetAutoClose true
 SectionEnd
 
-#-- ¸ù¾İ NSIS ½Å±¾±à¼­¹æÔò£¬ËùÓĞ Function Çø¶Î±ØĞë·ÅÖÃÔÚ Section Çø¶ÎÖ®ºó±àĞ´£¬ÒÔ±ÜÃâ°²×°³ÌĞò³öÏÖÎ´¿ÉÔ¤ÖªµÄÎÊÌâ¡£--#
+#-- æ ¹æ® NSIS è„šæœ¬ç¼–è¾‘è§„åˆ™ï¼Œæ‰€æœ‰ Function åŒºæ®µå¿…é¡»æ”¾ç½®åœ¨ Section åŒºæ®µä¹‹åç¼–å†™ï¼Œä»¥é¿å…å®‰è£…ç¨‹åºå‡ºç°æœªå¯é¢„çŸ¥çš„é—®é¢˜ã€‚--#
 
 Function un.onInit
-  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "ÄúÈ·ÊµÒªÍêÈ«ÒÆ³ı $(^Name) £¬¼°ÆäËùÓĞµÄ×é¼ş£¿" IDYES +2
+  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "æ‚¨ç¡®å®è¦å®Œå…¨ç§»é™¤ $(^Name) ï¼ŒåŠå…¶æ‰€æœ‰çš„ç»„ä»¶ï¼Ÿ" IDYES +2
   Abort
 FunctionEnd
 
 Function un.onUninstSuccess
   HideWindow
-  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) ÒÑ³É¹¦µØ´ÓÄúµÄ¼ÆËã»úÒÆ³ı¡£"
+  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) å·²æˆåŠŸåœ°ä»æ‚¨çš„è®¡ç®—æœºç§»é™¤ã€‚"
 FunctionEnd
